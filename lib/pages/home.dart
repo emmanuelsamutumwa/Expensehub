@@ -4,7 +4,6 @@ import 'package:expensetracker/pages/signin.dart';
 
 class Homepage extends StatelessWidget{
   const Homepage({super.key});
-  static String id = 'home_screen';
 
   @override
   Widget build (BuildContext context) {
@@ -53,7 +52,7 @@ class Homepage extends StatelessWidget{
                   child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
-                          return SignIn();
+                          return SignUp();
                         }));
                       },
                       child: Text(
