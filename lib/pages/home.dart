@@ -8,7 +8,7 @@ class Homepage extends StatelessWidget{
   @override
   Widget build (BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown,
+      backgroundColor: Colors.white38,
       body: SafeArea(
         child: Center(
           child: Column(
@@ -35,7 +35,7 @@ class Homepage extends StatelessWidget{
                         }));
                       },
                       child: Text(
-                          'LOGIN',
+                          'SIGN IN',
                         style: TextStyle(color: Colors.white),
                       )
                   ),
