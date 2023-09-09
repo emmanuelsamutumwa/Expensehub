@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:expensetracker/pages/homescreen.dart';
 
 class SignIn extends StatelessWidget {
   SignIn({super.key});
@@ -48,7 +49,10 @@ class SignIn extends StatelessWidget {
             ),
             TextButton(
                 onPressed: () {
-                  print ('Signed In');
+                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
+                    return homescreen();
+                  }));
+
                 },
                 child: Text("Sign In"),
             style: TextButton.styleFrom(
@@ -71,7 +75,6 @@ class SignIn extends StatelessWidget {
                 Text(
                   'Sign Up',
                   style: TextStyle(color:Colors.blue ),
-
                 ),
               ],
             )
