@@ -11,6 +11,7 @@ class Homepage extends StatelessWidget{
       backgroundColor: Colors.white38,
       body: SafeArea(
         child: Center(
+
           child: Column(
             children:<Widget>[
               const SizedBox(height: 50),
@@ -61,9 +62,10 @@ class Homepage extends StatelessWidget{
                       )
                   ),
                 ),
-              )
+              ),
 
-            ],
+
+            ]
           ),
         ),
       ),
