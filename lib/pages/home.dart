@@ -12,7 +12,7 @@ class Homepage extends StatelessWidget{
       body: SafeArea(
         child: Center(
           child: Column(
-            children:[
+            children:<Widget>[
               const SizedBox(height: 50),
 
           //welcome message
