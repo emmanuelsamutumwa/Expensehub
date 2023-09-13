@@ -1,3 +1,4 @@
+import 'package:expensetracker/pages/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:expensetracker/pages/homescreen.dart';
 
@@ -5,6 +6,7 @@ class SignIn extends StatelessWidget {
   SignIn({super.key});
 
   final emailController =TextEditingController();
+  final passwordController =TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +39,7 @@ class SignIn extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(20.0),
               child: TextFormField(
+                controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: "Password",
@@ -72,10 +75,15 @@ class SignIn extends StatelessWidget {
                   style: TextStyle(color: Colors.indigo),
                 ),
                 SizedBox(width: 5),
-                Text(
-                  'Sign Up',
-                  style: TextStyle(color:Colors.blue ),
-                ),
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder:  (BuildContext)
+                      {
+                        return SignUp();
+                      }));
+                      },
+
+                    child: const Text('Sign Up'))
               ],
             )
 

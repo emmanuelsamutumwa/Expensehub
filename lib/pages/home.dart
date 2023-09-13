@@ -21,7 +21,7 @@ class Homepage extends StatelessWidget{
                 'Welcome to Expense Hub',
               style: TextStyle(fontWeight: FontWeight.bold),
               ),
-            SizedBox(height: 250),
+            const SizedBox(height: 250),
 
             //sign in button
               Container(
@@ -30,6 +30,7 @@ class Homepage extends StatelessWidget{
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(fixedSize: const Size(150, 70)) ,
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
                           return SignIn();
@@ -42,7 +43,7 @@ class Homepage extends StatelessWidget{
                   ),
                 ),
               ),
-            SizedBox(height:10),
+            SizedBox(height:30),
 
             //register
               Container(
@@ -51,6 +52,7 @@ class Homepage extends StatelessWidget{
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
                   child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(fixedSize: const Size(150, 70)),
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
                           return SignUp();
@@ -63,8 +65,6 @@ class Homepage extends StatelessWidget{
                   ),
                 ),
               ),
-
-
             ]
           ),
         ),
