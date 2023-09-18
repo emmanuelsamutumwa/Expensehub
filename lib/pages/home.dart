@@ -19,52 +19,62 @@ class Homepage extends StatelessWidget{
           //welcome message
               const Text(
                 'Welcome to Expense Hub',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold,
+              fontSize: 25),
               ),
             const SizedBox(height: 250),
 
             //sign in button
               Container(
-                height: 20,
-                width: 150,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(fixedSize: const Size(150, 70)) ,
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
-                          return SignIn();
-                        }));
-                      },
-                      child: Text(
-                          'SIGN IN',
-                        style: TextStyle(color: Colors.white),
-                      )
-                  ),
+                width: 250,
+                height: 50,
+                decoration:
+                BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: Colors.white12,
+                ),
+                child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                        side: BorderSide(
+                            color: Colors.transparent
+                        )
+                    ),
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
+                        return SignIn();
+                      }));
+                    },
+                    child: const Text("SIGN IN")
                 ),
               ),
             SizedBox(height:30),
 
             //register
               Container(
-                height: 20,
-                width: 150,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(fixedSize: const Size(150, 70)),
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
-                          return SignUp();
-                        }));
-                      },
-                      child: Text(
-                        'SIGN UP',
-                        style: TextStyle(color: Colors.white),
-                      )
+                width: 250,
+                height: 50,
+                decoration:
+                BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: Colors.white12,
+                ),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(
+                      color: Colors.transparent
+                    )
                   ),
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
+                        return SignUp();
+                      }));
+                    },
+                    child: const Text("SIGN UP")
                 ),
               ),
+              SizedBox(height:300),
+
+              Text("Designed By Emmanuel & Bupe")
             ]
           ),
         ),

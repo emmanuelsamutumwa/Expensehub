@@ -5,8 +5,11 @@ import 'package:expensetracker/pages/homescreen.dart';
 class SignIn extends StatelessWidget {
   SignIn({super.key});
 
-  final emailController =TextEditingController();
-  final passwordController =TextEditingController();
+  final globalkey =GlobalKey<FormState>();
+
+
+ final TextEditingController emailController =TextEditingController();
+ final TextEditingController passwordController =TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,83 +17,107 @@ class SignIn extends StatelessWidget {
         centerTitle: true,
       ),
       backgroundColor: Colors.grey,
-      body:  Center(
-        child: Column(
-
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(20.0),
-              child: TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  hintText: "name@example.com",
-                  prefixIcon: Icon(Icons.email),
-                  suffix: IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () =>emailController.clear(),
-                  ),
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20.0),
-              child: TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  hintText: "Enter secure password",
-                  prefixIcon: Icon(Icons.key),
-                  border: OutlineInputBorder(),
-                ),
-                textInputAction: TextInputAction.done,
-              ),
-            ),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
-                    return homescreen();
-                  }));
-
-                },
-                child: Text("Sign In"),
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.teal,
-              backgroundColor: Colors.white,
-              shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
-              elevation: 5,
-            ),
-            ),
-            SizedBox(height:15),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Dont have an Account?',
-                  style: TextStyle(color: Colors.indigo),
-                ),
-                SizedBox(width: 5),
-                TextButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder:  (BuildContext)
-                      {
-                        return SignUp();
-                      }));
+        body: SingleChildScrollView(
+          child: Center(
+            child: Form(
+              key: globalkey,
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    SizedBox(height: 250),
+                    TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      controller: emailController,
+                      validator: (val){
+                        if (val!.isEmpty) {
+                          return "Please enter email address";
+                        }
                       },
+                      decoration: InputDecoration(
+                          labelText: "Email Address",
+                        hintText: "name@example.com",
+                        prefixIcon: Icon(Icons.email),
+                          suffix: IconButton(
+                            icon: Icon(Icons.clear),
+                            onPressed: () => emailController,
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(width: 3)
+                          ),
+                      ),
+                    ),
 
-                    child: const Text('Sign Up'))
-              ],
-            )
+                    SizedBox(
+                      height: 20,
+                    ),
 
+                    TextFormField(
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
+                      controller: passwordController,
+                      validator: (val){
+                        if (val!.isEmpty) {
+                          return "Please enter Password";
+                        }
+                      },
+                      decoration: InputDecoration(
+                          labelText: "Password",
+                          hintText: "Enter secure password",
+                          prefixIcon: Icon(Icons.key),
+                          suffixIcon: Icon(Icons.visibility_off),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(width: 3)
+                          ),
+                      ),
+                      textInputAction: TextInputAction.done,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext){
+                            return homescreen();
+                          }
+                          ));
+                          final form =globalkey.currentState;
+                          if (form!.validate()){
+                            print("First Name: " + emailController.text.toString());
+                            print("Password: " + passwordController.text.toString());
+                          }
+                        },
+                        child: Text("Sign In")),
 
-          ],
-        ),
-      ),
+                    SizedBox(height:20),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Do not have an account?",
+                          style: TextStyle(color: Colors.indigo),
+                        ),
+                        SizedBox(width:5),
+                        TextButton(
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (BuildContext)
+                              {
+                                return SignUp();
+                              }));
+                            },
+                          child: const Text("Sign Up"))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )
     );
   }
 }
+
