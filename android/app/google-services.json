@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "295828389427",
-    "project_id": "expense-hub-7e681",
-    "storage_bucket": "expense-hub-7e681.appspot.com"
+    "project_number": "853008952772",
+    "project_id": "expensehub-2adda",
+    "storage_bucket": "expensehub-2adda.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:295828389427:android:9c85b375732372c76f6d46",
+        "mobilesdk_app_id": "1:853008952772:android:07b547d1038ab7cf698891",
         "android_client_info": {
           "package_name": "com.sambups.expensetracker"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCNOT1jrNdY9FtsOyb3QPi2svLc0Jbag90"
+          "current_key": "AIzaSyAa7Pe-A7SJBdu7Q44KOOMsQTe_KpYigeY"
         }
       ],
       "services": {
