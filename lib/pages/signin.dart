@@ -1,15 +1,22 @@
 import 'package:expensetracker/pages/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:expensetracker/pages/homescreen.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
   SignIn({super.key});
 
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
   final globalkey =GlobalKey<FormState>();
 
-
  final TextEditingController emailController =TextEditingController();
+
  final TextEditingController passwordController =TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

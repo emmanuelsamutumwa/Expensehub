@@ -1,15 +1,22 @@
 import 'package:expensetracker/pages/signin.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:expensetracker/pages/homescreen.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   SignUp({super.key});
 
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   final globalkey =GlobalKey<FormState>();
 
-  final TextEditingController emailController =TextEditingController();
-  final TextEditingController passwordController =TextEditingController();
   final TextEditingController fullnameController =TextEditingController();
+
+  final TextEditingController emailController =TextEditingController();
+
+  final TextEditingController passwordController =TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -102,10 +109,15 @@ class SignUp extends StatelessWidget {
                     ),
                     ElevatedButton(
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext){
-                            return homescreen();
+                          FirebaseAuth.instance.createUserWithEmailAndPassword(
+                              email: emailController.text,
+                              password: passwordController.text) .then((value)  {
+                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
+                          return SignIn();
                           }
                           ));
+
+                          });
                           final form =globalkey.currentState;
                           if (form!.validate()){
                             print("First Name: " + fullnameController.text.toString());
@@ -141,86 +153,7 @@ class SignUp extends StatelessWidget {
             ),
           ),
         )
-
-      /*
-        body: Center(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Full Name",
-                  hintText: "Full Name",
-                  prefixIcon: Icon(Icons.perm_identity),
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  prefixIcon: Icon(Icons.email),
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: TextFormField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  hintText: "Enter secure password",
-                  prefixIcon: Icon(Icons.key),
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                // Add your sign-up logic here
-                print('Signed Up');
-              },
-              child: Text("Sign Up"),
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.teal,
-                backgroundColor: Colors.white,
-                shape: BeveledRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                ),
-                elevation: 5,
-              ),
-            ),
-
-            SizedBox(height:15),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Already have an account?',
-                  style: TextStyle(color: Colors.indigo),
-                ),
-                SizedBox(width: 5),
-                TextButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder:  (BuildContext)
-                      {
-                        return SignIn();
-                      }));
-                    },
-
-                    child: const Text('Sign In'))
-              ],
-            )
-
-          ],
-        ),
-      ),*/
     );
   }
-  }
+}
 
