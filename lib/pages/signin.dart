@@ -90,6 +90,7 @@ class _SignInState extends State<SignIn> {
                               email: emailController.text,
                               password: passwordController.text) .then((value)  {
                             Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
+                              print("Signed in successfully");
                               return homescreen();
                             }
                             ));
