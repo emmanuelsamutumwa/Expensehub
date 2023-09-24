@@ -86,13 +86,17 @@ class _SignInState extends State<SignIn> {
                     ),
                     ElevatedButton(
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext){
-                            return homescreen();
-                          }
-                          ));
+                          FirebaseAuth.instance.signInWithEmailAndPassword(
+                              email: emailController.text,
+                              password: passwordController.text) .then((value)  {
+                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
+                              return homescreen();
+                            }
+                            ));
+                          });
                           final form =globalkey.currentState;
                           if (form!.validate()){
-                            print("First Name: " + emailController.text.toString());
+                            print("Email: " + emailController.text.toString());
                             print("Password: " + passwordController.text.toString());
                           }
                         },
