@@ -8,7 +8,7 @@ class Homepage extends StatelessWidget{
   @override
   Widget build (BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white38,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
 

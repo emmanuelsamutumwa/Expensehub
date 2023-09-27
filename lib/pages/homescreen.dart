@@ -2,8 +2,10 @@ import 'package:expensetracker/pages/data/expense_data.dart';
 import 'package:expensetracker/pages/models/expense_item.dart';
 import 'package:expensetracker/pages/settings.dart';
 import 'package:expensetracker/pages/statistics.dart';
+import 'package:expensetracker/Geo/Geolocater.dart' ;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 
 class homescreen extends StatefulWidget {
   const homescreen({super.key});
