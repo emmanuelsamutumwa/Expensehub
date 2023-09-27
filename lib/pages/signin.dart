@@ -11,6 +11,9 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+
+  bool isLoading = false;
+
   final globalkey =GlobalKey<FormState>();
 
  final TextEditingController emailController =TextEditingController();
@@ -84,24 +87,61 @@ class _SignInState extends State<SignIn> {
                     SizedBox(
                       height: 20,
                     ),
+
                     ElevatedButton(
-                        onPressed: (){
-                          FirebaseAuth.instance.signInWithEmailAndPassword(
-                              email: emailController.text,
-                              password: passwordController.text) .then((value)  {
-                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
+                      onPressed: () {
+                        // Show loading indicator
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
+                        );
+
+                        FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        ).then((value) {
+                          // Hide loading indicator
+                          Navigator.pop(context);
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (BuildContext) {
                               print("Signed in successfully");
                               return homescreen();
-                            }
-                            ));
-                          });
-                          final form =globalkey.currentState;
-                          if (form!.validate()){
-                            print("Email: " + emailController.text.toString());
-                            print("Password: " + passwordController.text.toString());
+                            }),
+                          );
+                        }).catchError((error) {
+                          // Hide loading indicator
+                          Navigator.pop(context);
+
+                          String errorMessage = "An error occurred. Please try again.";
+                          if (error.code == 'wrong-password') {
+                            errorMessage = "Wrong password. Please try again.";
+                          } else if (error.code == 'user-not-found') {
+                            errorMessage = "Account does not exist. Please sign up.";
                           }
-                        },
-                        child: Text("Sign In")),
+
+                          // Show snackbar with error message
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(errorMessage),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        });
+
+                        final form = globalkey.currentState;
+                        if (form!.validate()) {
+                          print("Email: " + emailController.text.toString());
+                          print("Password: " + passwordController.text.toString());
+                        }
+                      },
+                      child: Text("Sign In"),
+                    ),
 
                     SizedBox(height:20),
 

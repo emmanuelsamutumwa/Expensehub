@@ -10,6 +10,10 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+
+
+  bool isLoading = false;
+
   final globalkey =GlobalKey<FormState>();
 
   final TextEditingController fullnameController =TextEditingController();
@@ -107,26 +111,56 @@ class _SignUpState extends State<SignUp> {
                     SizedBox(
                       height: 20,
                     ),
-                    ElevatedButton(
-                        onPressed: (){
-                          FirebaseAuth.instance.createUserWithEmailAndPassword(
-                              email: emailController.text,
-                              password: passwordController.text) .then((value)  {
-                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
-                            print("Signed Up Successfully");
-                          return SignIn();
-                          }
-                          ));
 
-                          });
-                          final form =globalkey.currentState;
-                          if (form!.validate()){
-                            print("First Name: " + fullnameController.text.toString());
-                            print("Email: " + emailController.text.toString());
-                            print("Password: " + passwordController.text.toString());
-                          }
-                        },
-                        child: Text("Sign Up")),
+
+
+                  ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true; // Set isLoading to true when button is pressed
+            });
+                    try {
+                      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                      print("Signed Up Successfully");
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Account created successfully!'),
+                          duration: Duration(seconds: 3),
+                        ),
+                      );
+                      Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
+                        return SignIn();
+                      }));
+                    } catch (e) {
+                      if (e is FirebaseAuthException && e.code == 'email-already-in-use') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('This email is already in use. Please choose a different email address.'),
+                            duration: Duration(seconds: 5),
+                          ),);
+                      } else {
+                        print('Error: $e');
+                      }
+                    } finally {
+                      setState(() {
+                        isLoading = false;
+                      });
+                    }
+
+                    final form = globalkey.currentState;
+                    if (form!.validate()) {
+                      print("First Name: " + fullnameController.text.toString());
+                      print("Email: " + emailController.text.toString());
+                      print("Password: " + passwordController.text.toString());
+                    }},
+                      child: isLoading
+                          ? CircularProgressIndicator()
+                          : Text("Sign Up")
+                  )
+,
 
                     SizedBox(height:20),
 

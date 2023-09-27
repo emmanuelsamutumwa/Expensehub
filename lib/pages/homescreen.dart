@@ -1,5 +1,7 @@
 import 'package:expensetracker/pages/data/expense_data.dart';
 import 'package:expensetracker/pages/models/expense_item.dart';
+import 'package:expensetracker/pages/settings.dart';
+import 'package:expensetracker/pages/statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -96,11 +98,28 @@ class _homescreenState extends State<homescreen> {
         builder: (context, value, child) => Scaffold(
           backgroundColor: Colors.grey,
           bottomNavigationBar: BottomNavigationBar(
-            //receives index of users input to update page
             onTap: (index) {
               setState(() {
+                myIndex = index;
               });
-              myIndex =index;
+
+              switch (index) {
+                case 0:
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => homescreen(),
+                  ));
+                  break;
+                case 1:
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => statistics(),
+                  ));
+                  break;
+                case 2:
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => settings(),
+                  ));
+                  break;
+              }
             },
             currentIndex: myIndex,
             type: BottomNavigationBarType.fixed,
