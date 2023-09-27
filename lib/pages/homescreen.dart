@@ -5,6 +5,7 @@ import 'package:expensetracker/pages/statistics.dart';
 import 'package:expensetracker/Geo/Geolocater.dart' ;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:expensetracker/widget/bottomnavigation.dart';
 
 
 class homescreen extends StatefulWidget {
@@ -99,41 +100,37 @@ class _homescreenState extends State<homescreen> {
     return Consumer <ExpenseData> (
         builder: (context, value, child) => Scaffold(
           backgroundColor: Colors.grey,
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: (index) {
-              setState(() {
-                myIndex = index;
-              });
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: Text ("Welcome to Express Hub"),
+              centerTitle: true,
+            ),
+            bottomNavigationBar: CustomBottomNavigationBar(
+              currentIndex: myIndex,
+              onTap: (index) {
+                setState(() {
+                  myIndex = index;
+                });
 
-              switch (index) {
-                case 0:
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => homescreen(),
-                  ));
-                  break;
-                case 1:
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => statistics(),
-                  ));
-                  break;
-                case 2:
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => settings(),
-                  ));
-                  break;
-              }
-            },
-            currentIndex: myIndex,
-            type: BottomNavigationBarType.fixed,
-            items: const[
-              BottomNavigationBarItem(icon: Icon(Icons.home),
-              label: "Home"),
-              BottomNavigationBarItem(icon: Icon(Icons.bar_chart),
-                  label: "Statistics"),
-              BottomNavigationBarItem(icon: Icon(Icons.settings),
-                  label: "Settings"),
-            ],
-          ),
+                switch (index) {
+                  case 0:
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => homescreen(),
+                    ));
+                    break;
+                  case 1:
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => statistics(),
+                    ));
+                    break;
+                  case 2:
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => settings(),
+                    ));
+                    break;
+                }
+              },
+            ),
           floatingActionButton: FloatingActionButton(
             onPressed: addNewExpense,
             child: Icon(Icons.add),
