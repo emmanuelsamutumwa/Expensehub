@@ -26,7 +26,7 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(title: Text("Sign In"),
         centerTitle: true,
       ),
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Center(
             child: Form(
@@ -111,7 +111,7 @@ class _SignInState extends State<SignIn> {
                             context,
                             MaterialPageRoute(builder: (BuildContext) {
                               print("Signed in successfully");
-                              return homescreen();
+                              return HomeScreen();
                             }),
                           );
                         }).catchError((error) {

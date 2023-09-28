@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 class ExpenseItem {
   final String name;
-  final String amount;
+  final double amount;
   final DateTime dateTime;
-  
-  ExpenseItem({
-  required this.name,
-  required this.amount,
-  required this.dateTime
-  });
+  final String category;
 
+  ExpenseItem({
+    required this.name,
+    required this.amount,
+    required this.dateTime,
+    required this.category,
+  });
 }

@@ -28,7 +28,7 @@ class _SignUpState extends State<SignUp> {
       appBar: AppBar(title: Text("Sign Up"),
         centerTitle: true,
       ),
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Center(
             child: Form(

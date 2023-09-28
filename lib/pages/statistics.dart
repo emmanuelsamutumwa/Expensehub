@@ -3,14 +3,14 @@ import 'package:expensetracker/pages/settings.dart';
 import 'package:expensetracker/widget/bottomnavigation.dart';
 import 'package:flutter/material.dart';
 
-class statistics extends StatefulWidget {
-   statistics({super.key});
+class Statistics extends StatefulWidget {
+   Statistics({super.key});
 
   @override
-  State<statistics> createState() => _statisticsState();
+  State<Statistics> createState() => _StatisticsState();
 }
 
-class _statisticsState extends State<statistics> {
+class _StatisticsState extends State<Statistics> {
   int myIndex=1;
 
   @override
@@ -30,17 +30,17 @@ class _statisticsState extends State<statistics> {
           switch (index) {
             case 0:
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => homescreen(),
+                builder: (context) => HomeScreen(),
               ));
               break;
             case 1:
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => statistics(),
+                builder: (context) => Statistics(),
               ));
               break;
             case 2:
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => settings(),
+                builder: (context) => Settings(),
               ));
               break;
           }
