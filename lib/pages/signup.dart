@@ -27,6 +27,7 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       appBar: AppBar(title: Text("Sign Up"),
         centerTitle: true,
+          automaticallyImplyLeading: false,
       ),
       backgroundColor: Colors.white,
         body: SingleChildScrollView(
