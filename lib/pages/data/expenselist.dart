@@ -13,6 +13,9 @@ class _ExpenseListState extends State<ExpenseList> {
   Widget build(BuildContext context) {
     return Consumer<ExpenseData>(
       builder: (context, expenseData, child) {
+        String selectedCurrency =
+            Provider.of<ExpenseData>(context).selectedCurrency;
+
         return ListView.builder(
           itemCount: expenseData.expenses.length,
           itemBuilder: (context, index) {
@@ -33,7 +36,7 @@ class _ExpenseListState extends State<ExpenseList> {
                   child: ListTile(
                     title: Text(expense.name),
                     subtitle: Text(DateFormat('HH:mm').format(expense.dateTime)),
-                    trailing: Text('K${expense.amount.toStringAsFixed(2)}'),
+                    trailing: Text('$selectedCurrency${expense.amount.toStringAsFixed(2)}'),
                   ),
                 ),
                 const Divider(),
