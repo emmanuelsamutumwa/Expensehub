@@ -15,49 +15,57 @@ class ExpensePieChart extends StatefulWidget {
 }
 
 class _ExpensePieChartState extends State<ExpensePieChart> {
-  List<PieChartSectionData> pieChartSections = [];
   String selectedCategory = 'Food'; // Initialize with a default category
+  double totalAmountSpentForCategory = 0.0;
 
   @override
   void initState() {
     super.initState();
-    updatePieChartSections();
+    updateTotalAmountSpentForCategory();
   }
 
-  void updatePieChartSections() {
-    final categoryMap = widget.expenses.groupBy((expense) => expense.category);
-    pieChartSections = categoryMap.keys.map((category) {
-      final expenses = categoryMap[category]!;
-      double totalAmount = expenses.map((expense) => expense.amount).fold(0, (a, b) => a + b);
+  void updateTotalAmountSpentForCategory() {
+    // Calculate the total amount spent for the selected category
+    totalAmountSpentForCategory = widget.expenses
+        .where((expense) => expense.category == selectedCategory)
+        .map((expense) => expense.amount)
+        .fold(0, (a, b) => a + b);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Create a list of PieChartSectionData based on your ExpenseItem data
+    List<PieChartSectionData> pieChartSections = widget.expenses.map((expense) {
+      // Define the value for the pie chart section based on the expense amount
+      double value = expense.amount;
+
+      // Assign specific colors to each category (you can add more colors)
       Color color;
 
-      // Assign colors based on category (you can customize these colors)
-      if (category == 'Food') {
+      if (expense.category == 'Food') {
         color = Colors.green;
-      } else if (category == 'Transportation') {
+      } else if (expense.category == 'Transportation') {
         color = Colors.red;
-      } else if (category == 'Entertainment') {
+      } else if (expense.category == 'Entertainment') {
         color = Colors.blue;
-      } else if (category == 'others') {
+      } else if (expense.category == 'others') {
         color = Colors.yellow;
-      } else if (category == 'Category5') {
+      } else if (expense.category == 'Category5') {
         color = Colors.orange;
-      } else if (category == 'Category6') {
+      } else if (expense.category == 'Category6') {
         color = Colors.pink;
       } else {
         color = Colors.brown; // Default color
       }
 
+      // Create a PieChartSectionData for this expense
       return PieChartSectionData(
         color: color,
-        value: totalAmount,
-        title: category, // Category name
+        value: value,
+        title: expense.category, // You can customize this label as needed
       );
     }).toList();
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return Column(
       children: [
         // Pie chart
@@ -84,24 +92,14 @@ class _ExpensePieChartState extends State<ExpensePieChart> {
           onChanged: (String? newValue) {
             setState(() {
               selectedCategory = newValue ?? 'Food';
+              updateTotalAmountSpentForCategory();
             });
           },
         ),
+        // Display the total amount spent for the selected category
+        Text('Total Amount Spent: \$${totalAmountSpentForCategory.toStringAsFixed(2)}'),
       ],
     );
   }
 }
 
-extension IterableExtensions<T> on Iterable<T> {
-  Map<K, List<T>> groupBy<K>(K Function(T) keyFunction) {
-    final result = <K, List<T>>{};
-    for (final item in this) {
-      final key = keyFunction(item);
-      if (!result.containsKey(key)) {
-        result[key] = <T>[];
-      }
-      result[key]!.add(item);
-    }
-    return result;
-  }
-}
