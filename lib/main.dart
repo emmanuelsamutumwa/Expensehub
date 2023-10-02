@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:expensetracker/pages/home.dart';
 import 'package:provider/provider.dart';
+import 'package:sqflite/sqflite.dart';
+
 
 
 void main() async {

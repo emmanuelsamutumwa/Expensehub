@@ -1,25 +1,30 @@
+import 'package:flutter/material.dart';
 import 'package:expensetracker/pages/homescreen.dart';
 import 'package:expensetracker/pages/settings.dart';
 import 'package:expensetracker/widget/bottomnavigation.dart';
-import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:expensetracker/pages/data/pie_chart.dart';
 
 class Statistics extends StatefulWidget {
-   Statistics({super.key});
+  Statistics({Key? key}) : super(key: key);
 
   @override
-  State<Statistics> createState() => _StatisticsState();
+  _StatisticsState createState() => _StatisticsState();
 }
 
 class _StatisticsState extends State<Statistics> {
-  int myIndex=1;
+  int myIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Statistics"),
-          centerTitle: true,
-        ),
+      appBar: AppBar(
+        title: Text("Statistics"),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: PieChartWidget(), // Use the Pie Chart widget from pie_chart.dart
+      ),
       bottomNavigationBar: CustomBottomNavigationBar(
         currentIndex: myIndex,
         onTap: (index) {
