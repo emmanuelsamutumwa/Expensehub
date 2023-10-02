@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:provider/provider.dart';
+import 'package:expensetracker/pages/data/expense_data.dart';
 import 'package:expensetracker/pages/models/expense_item.dart';
 
 class ExpensePieChart extends StatefulWidget {
@@ -24,11 +26,11 @@ class _ExpensePieChartState extends State<ExpensePieChart> {
       // Assign specific colors to each category (you can add more colors)
       Color color;
 
-      if (expense.category == 'Category1') {
+      if (expense.category == 'Food') {
         color = Colors.green;
-      } else if (expense.category == 'Category2') {
+      } else if (expense.category == 'Transportation') {
         color = Colors.red;
-      } else if (expense.category == 'Category3') {
+      } else if (expense.category == 'Entertainment') {
         color = Colors.blue;
       } else if (expense.category == 'Category4') {
         color = Colors.yellow;
