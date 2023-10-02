@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expensetracker/pages/data/expense_data.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 import '../models/expense_item.dart';
 
-class AddExpenseDialog extends StatelessWidget {
+class AddExpenseDialog extends StatefulWidget {
+  @override
+  _AddExpenseDialogState createState() => _AddExpenseDialogState();
+}
+
+class _AddExpenseDialogState extends State<AddExpenseDialog> {
   final TextEditingController expenseController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
   final List<String> categories = ['Food', 'Transportation', 'Entertainment', 'Others'];
   String selectedCategory = 'Food';
+  File? _selectedImage; // Make _selectedImage nullable
+
+  // Function to open the camera and select an image
+  Future<void> _pickImageFromCamera() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.camera);
+    if (image != null) {
+      setState(() {
+        _selectedImage = File(image.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +53,23 @@ class AddExpenseDialog extends StatelessWidget {
               );
             }).toList(),
             onChanged: (newValue) {
-              selectedCategory = newValue.toString();
+              setState(() {
+                selectedCategory = newValue.toString();
+              });
             },
             decoration: InputDecoration(labelText: 'Category'),
+          ),
+          if (_selectedImage != null)
+            Image.file(
+              _selectedImage!,
+              width: 100,
+              height: 100,
+            ),
+          ElevatedButton(
+            onPressed: () {
+              _pickImageFromCamera();
+            },
+            child: Text('Select Image from Camera'),
           ),
         ],
       ),
@@ -50,7 +82,6 @@ class AddExpenseDialog extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            // Access the ExpenseData provider and add the expense
             String name = expenseController.text;
             double amount = double.parse(amountController.text);
 
@@ -58,7 +89,8 @@ class AddExpenseDialog extends StatelessWidget {
               name: name,
               amount: amount,
               dateTime: DateTime.now(),
-              category: selectedCategory, // Assuming ExpenseItem has a 'category' property
+              category: selectedCategory,
+              image: _selectedImage, // Pass the selected image to the ExpenseItem
             );
 
             Provider.of<ExpenseData>(context, listen: false).addNewExpense(newExpense);
@@ -71,3 +103,4 @@ class AddExpenseDialog extends StatelessWidget {
     );
   }
 }
+
