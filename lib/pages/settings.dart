@@ -1,7 +1,9 @@
+import 'package:expensetracker/pages/statistics.dart';
 import 'package:expensetracker/widget/bottomnavigation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expensetracker/pages/data/expense_data.dart';
+import 'homescreen.dart';
 
 class Settings extends StatefulWidget {
   Settings({super.key});
@@ -32,6 +34,23 @@ class _SettingsState extends State<Settings> {
             setState(() {
               myIndex=index;
             });
+            switch (index) {
+              case 0:
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => HomeScreen(),
+                ));
+                break;
+              case 1:
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Statistics(),
+                ));
+                break;
+              case 2:
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Settings(),
+                ));
+                break;
+            }
           }
       ),
       body: ListView(
