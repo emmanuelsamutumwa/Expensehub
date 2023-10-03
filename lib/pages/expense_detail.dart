@@ -1,7 +1,7 @@
 import 'dart:io';
-
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import '../models/expense_item.dart';
+import 'models/expense_item.dart';
 
 class ExpenseDetailPage extends StatelessWidget {
   final ExpenseItem expense;

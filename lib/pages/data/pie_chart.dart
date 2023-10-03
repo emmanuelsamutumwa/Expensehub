@@ -34,6 +34,8 @@ class _ExpensePieChartState extends State<ExpensePieChart> {
 
   @override
   Widget build(BuildContext context) {
+    final expenseData = Provider.of<ExpenseData>(context);
+
     // Create a list of PieChartSectionData based on your ExpenseItem data
     List<PieChartSectionData> pieChartSections = widget.expenses.map((expense) {
       // Define the value for the pie chart section based on the expense amount
@@ -66,40 +68,43 @@ class _ExpensePieChartState extends State<ExpensePieChart> {
       );
     }).toList();
 
-    return Column(
-      children: [
-        // Pie chart
-        Expanded(
-          child: PieChart(
-            PieChartData(
-              sections: pieChartSections,
-              // You can customize other properties like center space radius, border data, etc.
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.5, // Set the height to half of the screen
+      child: Column(
+        children: [
+          // Pie chart
+          Expanded(
+            child: PieChart(
+              PieChartData(
+                sections: pieChartSections,
+                // You can customize other properties like center space radius, border data, etc.
+              ),
             ),
           ),
-        ),
-        // Dropdown to select a category
-        DropdownButton<String>(
-          value: selectedCategory,
-          items: widget.expenses
-              .map((expense) => expense.category)
-              .toSet()
-              .map((category) {
-            return DropdownMenuItem<String>(
-              value: category,
-              child: Text(category),
-            );
-          }).toList(),
-          onChanged: (String? newValue) {
-            setState(() {
-              selectedCategory = newValue ?? 'Food';
-              updateTotalAmountSpentForCategory();
-            });
-          },
-        ),
-        // Display the total amount spent for the selected category
-        Text('Total Amount Spent: \$${totalAmountSpentForCategory.toStringAsFixed(2)}'),
-      ],
+          SizedBox(height: 20)
+          // Dropdown to select a category
+          ,DropdownButton<String>(
+            value: selectedCategory,
+            items: widget.expenses
+                .map((expense) => expense.category)
+                .toSet()
+                .map((category) {
+              return DropdownMenuItem<String>(
+                value: category,
+                child: Text(category),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                selectedCategory = newValue ?? 'Food';
+                updateTotalAmountSpentForCategory();
+              });
+            },
+          ),
+          // Display the total amount spent for the selected category
+          Text('Total Amount Spent: ${expenseData.selectedCurrency}${totalAmountSpentForCategory.toStringAsFixed(2)}'),
+        ],
+      ),
     );
   }
 }
-

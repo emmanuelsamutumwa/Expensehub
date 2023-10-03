@@ -27,6 +27,28 @@ class _SignInState extends State<SignIn> {
     });
   }
 
+  Future<void> _resetPassword() async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: emailController.text,
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Password reset link sent to your email"),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error sending password reset link! Please enter valid email in text field"),
+          duration: Duration(seconds: 5),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +157,7 @@ class _SignInState extends State<SignIn> {
 
                         String errorMessage =
                             "An error occurred. Please try again.";
-                        if (error.code == 'wrong-password') {
+                        if (error.code == 'INVALID_LOGIN_CREDENTIALS') {
                           errorMessage = "Wrong password. Please try again.";
                         } else if (error.code == 'user-not-found') {
                           errorMessage =
@@ -158,6 +180,11 @@ class _SignInState extends State<SignIn> {
                       }
                     },
                     child: Text("Sign In"),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: _resetPassword, // Call the reset password function
+                    child: Text("Forgot Password"),
                   ),
                   SizedBox(height: 20),
                   Row(
