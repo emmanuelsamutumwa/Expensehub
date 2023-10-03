@@ -1,3 +1,4 @@
+import 'package:expensetracker/pages/data/expense_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:expensetracker/pages/data/expense_data.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,23 @@ class _ExpenseListState extends State<ExpenseList> {
                   child: ListTile(
                     title: Text(expense.name),
                     subtitle: Text(DateFormat('HH:mm').format(expense.dateTime)),
-                    trailing: Text('$selectedCurrency${expense.amount.toStringAsFixed(2)}'),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('$selectedCurrency${expense.amount.toStringAsFixed(2)}'),
+                        IconButton(
+                          icon: Icon(Icons.info),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ExpenseDetailPage(expense: expense),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 const Divider(),

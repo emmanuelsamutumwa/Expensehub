@@ -90,7 +90,7 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
               amount: amount,
               dateTime: DateTime.now(),
               category: selectedCategory,
-              image: _selectedImage, // Pass the selected image to the ExpenseItem
+              imagePath: _selectedImage?.path, // Pass the selected image to the ExpenseItem
             );
 
             Provider.of<ExpenseData>(context, listen: false).addNewExpense(newExpense);

@@ -39,12 +39,14 @@ dependencies:
   provider:
   firebase_core: ^2.16.0
   firebase_auth: ^4.10.0
-  geolocator: ^7.6.2
+  geolocator: ^10.1.0
   permission_handler: ^11.0.0
   intl: ^0.18.1
   sqflite: ^2.3.0
   fl_chart: ^0.63.0
   image_picker: ^1.0.4
+  shared_preferences: ^2.2.1
+
 
 dev_dependencies:
   flutter_test:
