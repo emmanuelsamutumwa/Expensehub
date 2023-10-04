@@ -1,9 +1,11 @@
+import 'package:expensetracker/pages/signin.dart';
 import 'package:expensetracker/pages/statistics.dart';
 import 'package:expensetracker/widget/bottomnavigation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expensetracker/pages/data/expense_data.dart';
 import 'homescreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Settings extends StatefulWidget {
   Settings({super.key});
@@ -19,6 +21,64 @@ class _SettingsState extends State<Settings> {
     Provider.of<ExpenseData>(context, listen: false).updateCurrency('USD');
   }
 
+  //sign out method
+  Future<void> _signOut(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context).pop(); // Close the confirmation dialog
+    // Navigate to sign-in screen
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => SignIn(), // Replace with your sign in screen
+    ));
+  }
+
+  //confirmation dialog method
+  Future<void> _showSignOutConfirmationDialog(BuildContext context) async {
+    bool isSigningOut = false;
+
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button for close
+      builder: (BuildContext dialogContext) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              title: Text('Sign Out'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text('Are you sure you want to sign out?'),
+                    if (isSigningOut) CircularProgressIndicator(), // Show loading icon if signing out
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(dialogContext).pop(); // Close the dialog
+                  },
+                ),
+                TextButton(
+                  child: Text('Sign Out'),
+                  onPressed: isSigningOut
+                      ? null
+                      : () async {
+                    setState(() {
+                      isSigningOut = true;
+                    });
+                    // Simulate a 5-second sign out process
+                    await Future.delayed(Duration(seconds: 2));
+                    await _signOut(context);
+                    Navigator.of(dialogContext).pop(); // Close the dialog
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     String selectedCurrency = Provider.of<ExpenseData>(context).selectedCurrency;
@@ -73,10 +133,17 @@ class _SettingsState extends State<Settings> {
               }).toList(),
             ),
           ),
+          const Divider(),
           ListTile(
             title: Text('Reset Settings'),
             onTap: _resetSettings,
           ),
+          const Divider(),
+          ListTile(
+            title: Text ("Sign Out"),
+            onTap: () =>  _showSignOutConfirmationDialog(context),
+          ),
+          const Divider(),
         ],
       ),
     );
