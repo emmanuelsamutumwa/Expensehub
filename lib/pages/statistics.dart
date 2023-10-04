@@ -31,13 +31,13 @@ class _StatisticsState extends State<Statistics> {
         child: Consumer<ExpenseData>(
           builder: (context, expenseData, child) {
             List<ExpenseItem> expenses = expenseData.expenses;
-              return ExpensePieChart(
-                expenses: expenses,
-                timePeriod: "Daily",
-              );
-            },
-          ),
+            return ExpensePieChart(
+              expenses: expenses,
+              timePeriod: "Daily",
+            );
+          },
         ),
+      ),
       bottomNavigationBar: CustomBottomNavigationBar(
         currentIndex: myIndex,
         onTap: (index) {
