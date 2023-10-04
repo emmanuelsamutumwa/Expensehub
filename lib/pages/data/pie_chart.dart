@@ -15,113 +15,96 @@ class ExpensePieChart extends StatefulWidget {
 }
 
 class _ExpensePieChartState extends State<ExpensePieChart> {
-  Map<String, double> categoryTotals = {}; // Store category-wise totals
-  String selectedCategory = 'All'; // Initialize with "All" category
+  String selectedCategory = 'Food'; // Initialize with a default category
+  double totalAmountSpentForCategory = 0.0;
 
   @override
   void initState() {
     super.initState();
-    calculateCategoryTotals();
+    updateTotalAmountSpentForCategory();
   }
 
-  void calculateCategoryTotals() {
-    categoryTotals.clear(); // Clear existing totals
-    for (var expense in widget.expenses) {
-      final category = expense.category;
-      final amount = expense.amount;
-      categoryTotals[category] = (categoryTotals[category] ?? 0) + amount;
-    }
+  void updateTotalAmountSpentForCategory() {
+    // Calculate the total amount spent for the selected category
+    totalAmountSpentForCategory = widget.expenses
+        .where((expense) => expense.category == selectedCategory)
+        .map((expense) => expense.amount)
+        .fold(0, (a, b) => a + b);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Dropdown to select a category
-        DropdownButton<String>(
-          value: selectedCategory,
-          items: ['All', ...categoryTotals.keys.toList()].map((category) {
-            return DropdownMenuItem<String>(
-              value: category,
-              child: Text(category),
-            );
-          }).toList(),
-          onChanged: (String? newValue) {
-            setState(() {
-              selectedCategory = newValue ?? '';
-            });
-          },
-        ),
-        // Show the pie chart or category breakdown
-        if (selectedCategory != 'All')
+    final expenseData = Provider.of<ExpenseData>(context);
+
+    // Create a list of PieChartSectionData based on your ExpenseItem data
+    List<PieChartSectionData> pieChartSections = widget.expenses.map((expense) {
+      // Define the value for the pie chart section based on the expense amount
+      double value = expense.amount;
+
+      // Assign specific colors to each category (you can add more colors)
+      Color color;
+
+      if (expense.category == 'Food') {
+        color = Colors.green;
+      } else if (expense.category == 'Transportation') {
+        color = Colors.red;
+      } else if (expense.category == 'Entertainment') {
+        color = Colors.blue;
+      } else if (expense.category == 'others') {
+        color = Colors.yellow;
+      } else if (expense.category == 'Category5') {
+        color = Colors.orange;
+      } else if (expense.category == 'Category6') {
+        color = Colors.pink;
+      } else {
+        color = Colors.brown; // Default color
+      }
+
+      // Create a PieChartSectionData for this expense
+      return PieChartSectionData(
+        color: color,
+        value: value,
+        title: expense.category, // You can customize this label as needed
+      );
+    }).toList();
+
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.5, // Set the height to half of the screen
+      child: Column(
+        children: [
+          // Pie chart
           Expanded(
-            child: Column(
-              children: widget.expenses
-                  .where((expense) => expense.category == selectedCategory)
-                  .map((expense) {
-                final name = expense.name;
-                final amount = expense.amount;
-
-                return Text('$name: \$${amount.toStringAsFixed(2)}');
-              })
-                  .toList(),
-            ),
-          )
-        else
-        // Show a smaller pie chart with text showing categories and totals
-          Expanded(
-            child: Column(
-              children: [
-                // Pie chart
-                AspectRatio(
-                  aspectRatio: 1.3,
-                  child: PieChart(
-                    PieChartData(
-                      sections: categoryTotals.entries
-                          .map((entry) {
-                        final totalAmount = entry.value;
-
-                        // Assign specific colors to each category (you can add more colors)
-                        Color color;
-
-                        if (entry.key == 'Food') {
-                          color = Colors.green;
-                        } else if (entry.key == 'Transportation') {
-                          color = Colors.red;
-                        } else if (entry.key == 'Entertainment') {
-                          color = Colors.blue;
-                        } else if (entry.key == 'Others') {
-                          color = Colors.yellow;
-                        } else if (entry.key == 'Category5') {
-                          color = Colors.orange;
-                        } else if (entry.key == 'Category6') {
-                          color = Colors.pink;
-                        } else {
-                          color = Colors.brown; // Default color
-                        }
-
-                        return PieChartSectionData(
-                          color: color,
-                          value: totalAmount,
-                          title: entry.key,
-                        );
-                      })
-                          .toList(),
-                      // You can customize other properties like center space radius, border data, etc.
-                    ),
-                  ),
-                ),
-                // Display category totals
-                ...categoryTotals.entries.map((entry) {
-                  final category = entry.key;
-                  final total = entry.value;
-
-                  return Text('$category: \$${total.toStringAsFixed(2)}');
-                }).toList(),
-              ],
+            child: PieChart(
+              PieChartData(
+                sections: pieChartSections,
+                // You can customize other properties like center space radius, border data, etc.
+              ),
             ),
           ),
-      ],
+          SizedBox(height: 20)
+          // Dropdown to select a category
+          ,DropdownButton<String>(
+            value: selectedCategory,
+            items: widget.expenses
+                .map((expense) => expense.category)
+                .toSet()
+                .map((category) {
+              return DropdownMenuItem<String>(
+                value: category,
+                child: Text(category),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                selectedCategory = newValue ?? 'Food';
+                updateTotalAmountSpentForCategory();
+              });
+            },
+          ),
+          // Display the total amount spent for the selected category
+          Text('Total Amount Spent: ${expenseData.selectedCurrency}${totalAmountSpentForCategory.toStringAsFixed(2)}'),
+        ],
+      ),
     );
   }
 }

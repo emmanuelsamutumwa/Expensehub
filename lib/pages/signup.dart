@@ -129,7 +129,7 @@ class _SignUpState extends State<SignUp> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Account created successfully!'),
-                          duration: Duration(seconds: 3),
+                          duration: Duration(seconds: 5),
                         ),
                       );
                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
