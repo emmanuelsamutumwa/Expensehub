@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:expensetracker/pages/homescreen.dart';
 
 class SignIn extends StatefulWidget {
-  SignIn({super.key});
+  const SignIn({super.key});
 
   @override
   State<SignIn> createState() => _SignInState();
