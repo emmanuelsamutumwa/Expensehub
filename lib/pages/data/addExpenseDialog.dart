@@ -14,7 +14,7 @@ class AddExpenseDialog extends StatefulWidget {
 class _AddExpenseDialogState extends State<AddExpenseDialog> {
   final TextEditingController expenseController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
-  final List<String> categories = ['Food', 'Transportation', 'Entertainment','Medical', 'Utilities','Others'];
+  final List<String> categories = ['Food', 'Transportation', 'Entertainment', 'Others'];
   String selectedCategory = 'Food';
   File? _selectedImage; // Make _selectedImage nullable
 
@@ -62,8 +62,8 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
           if (_selectedImage != null)
             Image.file(
               _selectedImage!,
-              width: 70,
-              height: 70,
+              width: 100,
+              height: 100,
             ),
           ElevatedButton(
             onPressed: () {
