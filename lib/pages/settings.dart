@@ -124,7 +124,7 @@ class _SettingsState extends State<Settings> {
               onChanged: (String? newValue) {
                 Provider.of<ExpenseData>(context, listen: false).updateCurrency(newValue!);
               },
-              items: <String>['USD', 'EUR', 'GBP', 'JPY']
+              items: <String>['USD', 'EUR', 'GBP', 'ZMW', 'ZAR']
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
