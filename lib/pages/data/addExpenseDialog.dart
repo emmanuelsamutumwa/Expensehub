@@ -7,6 +7,8 @@ import 'dart:io';
 import '../models/expense_item.dart';
 
 class AddExpenseDialog extends StatefulWidget {
+  const AddExpenseDialog({super.key});
+
   @override
   _AddExpenseDialogState createState() => _AddExpenseDialogState();
 }

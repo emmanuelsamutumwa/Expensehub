@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class ExpenseList extends StatefulWidget {
+  const ExpenseList({super.key});
+
   @override
   State<ExpenseList> createState() => _ExpenseListState();
 }
@@ -17,12 +19,11 @@ class _ExpenseListState extends State<ExpenseList> {
         String selectedCurrency =
             Provider.of<ExpenseData>(context).selectedCurrency;
 
-        double totalExpenses = 0;
-
         // Calculate total expenses
-        for (var expense in expenseData.expenses) {
-          totalExpenses += expense.amount;
-        }
+        double totalExpenses = expenseData.expenses.fold(
+          0.0,
+              (previousValue, expense) => previousValue + expense.amount,
+        );
 
         return Column(
           children: [
@@ -46,8 +47,8 @@ class _ExpenseListState extends State<ExpenseList> {
                         },
                         child: ListTile(
                           title: Text(expense.name),
-                          subtitle: Text('Date: ${DateFormat('dd-MM-yyyy HH:mm').format(expense.dateTime)}'),
-
+                          subtitle: Text(
+                              'Date: ${DateFormat('dd-MM-yyyy HH:mm').format(expense.dateTime)}'),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -58,7 +59,8 @@ class _ExpenseListState extends State<ExpenseList> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => ExpenseDetailPage(expense: expense),
+                                      builder: (context) =>
+                                          ExpenseDetailPage(expense: expense),
                                     ),
                                   );
                                 },
@@ -73,13 +75,16 @@ class _ExpenseListState extends State<ExpenseList> {
                 },
               ),
             ),
+            // Total expenses widget
             Container(
+              color: Colors.grey,
               padding: EdgeInsets.all(30.0),
-              color: Colors.grey[200],
+              alignment: Alignment.center,
               child: Text(
                 'Total Expenses: $selectedCurrency${totalExpenses.toStringAsFixed(2)}',
                 style: TextStyle(fontWeight: FontWeight.bold,
                 fontSize: 20),
+
               ),
             ),
           ],

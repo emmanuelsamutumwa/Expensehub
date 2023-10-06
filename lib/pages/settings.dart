@@ -59,7 +59,6 @@ class _SettingsState extends State<Settings> {
                   },
                 ),
                 TextButton(
-                  child: Text('Sign Out'),
                   onPressed: isSigningOut
                       ? null
                       : () async {
@@ -71,6 +70,7 @@ class _SettingsState extends State<Settings> {
                     await _signOut(context);
                     Navigator.of(dialogContext).pop(); // Close the dialog
                   },
+                  child: Text('Sign Out'),
                 ),
               ],
             );

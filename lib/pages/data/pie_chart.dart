@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:provider/provider.dart';
-import 'package:expensetracker/pages/data/expense_data.dart';
 import 'package:expensetracker/pages/models/expense_item.dart';
 
 class ExpensePieChart extends StatefulWidget {
   final List<ExpenseItem> expenses;
   final String timePeriod; // Weekly, Monthly, Yearly, etc.
 
-  ExpensePieChart({required this.expenses, required this.timePeriod});
+  const ExpensePieChart({super.key, required this.expenses, required this.timePeriod});
 
   @override
   State<ExpensePieChart> createState() => _ExpensePieChartState();
@@ -37,6 +35,7 @@ class _ExpensePieChartState extends State<ExpensePieChart> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const SizedBox(height: 20),
         // Dropdown to select a category
         DropdownButton<String>(
           value: selectedCategory,
@@ -52,6 +51,7 @@ class _ExpensePieChartState extends State<ExpensePieChart> {
             });
           },
         ),
+        const SizedBox(height:40),
         // Show the pie chart or category breakdown
         if (selectedCategory != 'All')
           Expanded(
@@ -90,11 +90,11 @@ class _ExpensePieChartState extends State<ExpensePieChart> {
                           color = Colors.red;
                         } else if (entry.key == 'Entertainment') {
                           color = Colors.blue;
-                        } else if (entry.key == 'Others') {
+                        } else if (entry.key == 'Medical') {
                           color = Colors.yellow;
-                        } else if (entry.key == 'Category5') {
+                        } else if (entry.key == 'Utilities') {
                           color = Colors.orange;
-                        } else if (entry.key == 'Category6') {
+                        } else if (entry.key == 'Others') {
                           color = Colors.pink;
                         } else {
                           color = Colors.brown; // Default color
@@ -131,7 +131,7 @@ class _ExpensePieChartState extends State<ExpensePieChart> {
                 // Display the total at the bottom with a larger font size
                 Text(
                   'Total: \$${categoryTotals.values.reduce((a, b) => a + b).toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 18), // Adjust the font size as needed
+                  style: const TextStyle(fontSize: 18), // Adjust the font size as needed
                 ),
               ],
             ),
@@ -148,11 +148,11 @@ class _ExpensePieChartState extends State<ExpensePieChart> {
         return Colors.red;
       case 'Entertainment':
         return Colors.blue;
-      case 'Others':
+      case 'Medical':
         return Colors.yellow;
-      case 'Category5':
+      case 'Utilities':
         return Colors.orange;
-      case 'Category6':
+      case 'Others':
         return Colors.pink;
       default:
         return Colors.brown; // Default color

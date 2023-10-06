@@ -10,7 +10,7 @@ import 'package:expensetracker/pages/data/pie_chart.dart';
 
 
 class Statistics extends StatefulWidget {
-  Statistics({Key? key}) : super(key: key);
+  const Statistics({Key? key}) : super(key: key);
 
   @override
   _StatisticsState createState() => _StatisticsState();

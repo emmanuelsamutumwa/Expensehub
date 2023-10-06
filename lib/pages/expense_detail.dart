@@ -6,7 +6,7 @@ import 'models/expense_item.dart';
 class ExpenseDetailPage extends StatelessWidget {
   final ExpenseItem expense;
 
-  ExpenseDetailPage({required this.expense});
+  const ExpenseDetailPage({super.key, required this.expense});
 
   @override
   Widget build(BuildContext context) {
