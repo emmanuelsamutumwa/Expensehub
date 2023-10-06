@@ -103,7 +103,7 @@ class _ExpensePieChartState extends State<ExpensePieChart> {
                         return PieChartSectionData(
                           color: color,
                           value: totalAmount,
-                          title: entry.key,
+                          title: '',
                         );
                       })
                           .toList(),
@@ -112,16 +112,50 @@ class _ExpensePieChartState extends State<ExpensePieChart> {
                   ),
                 ),
                 // Display category totals
-                ...categoryTotals.entries.map((entry) {
-                  final category = entry.key;
-                  final total = entry.value;
+                Column(
+                  children: categoryTotals.entries.map((entry) {
+                    final category = entry.key;
+                    final total = entry.value;
+                    final color = getCategoryColor(category);
 
-                  return Text('$category: \$${total.toStringAsFixed(2)}');
-                }).toList(),
+                    return ListTile(
+                      leading: Container(
+                        width: 12,
+                        height: 12,
+                        color: color,
+                      ),
+                      title: Text('$category: \$${total.toStringAsFixed(2)}'),
+                    );
+                  }).toList(),
+                ),
+                // Display the total at the bottom with a larger font size
+                Text(
+                  'Total: \$${categoryTotals.values.reduce((a, b) => a + b).toStringAsFixed(2)}',
+                  style: TextStyle(fontSize: 18), // Adjust the font size as needed
+                ),
               ],
             ),
           ),
       ],
     );
+  }
+
+  Color getCategoryColor(String category) {
+    switch (category) {
+      case 'Food':
+        return Colors.green;
+      case 'Transportation':
+        return Colors.red;
+      case 'Entertainment':
+        return Colors.blue;
+      case 'Others':
+        return Colors.yellow;
+      case 'Category5':
+        return Colors.orange;
+      case 'Category6':
+        return Colors.pink;
+      default:
+        return Colors.brown; // Default color
+    }
   }
 }
