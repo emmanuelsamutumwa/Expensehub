@@ -5,12 +5,13 @@ import 'package:expensetracker/pages/settings.dart';
 import 'package:expensetracker/widget/bottomnavigation.dart';
 import 'package:provider/provider.dart'; // Import the provider package
 import 'package:expensetracker/pages/data/expense_data.dart'; // Import your ExpenseData class
+import 'package:fl_chart/fl_chart.dart';
 import 'package:expensetracker/pages/data/pie_chart.dart';
 
 
 
 class Statistics extends StatefulWidget {
-  const Statistics({Key? key}) : super(key: key);
+  Statistics({Key? key}) : super(key: key);
 
   @override
   _StatisticsState createState() => _StatisticsState();
@@ -23,7 +24,7 @@ class _StatisticsState extends State<Statistics> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Statistics"),
+        title: Text("Statistics"),
         centerTitle: true,
       ),
       body: Center(
@@ -47,12 +48,12 @@ class _StatisticsState extends State<Statistics> {
           switch (index) {
             case 0:
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
+                builder: (context) => HomeScreen(),
               ));
               break;
             case 1:
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const Statistics(),
+                builder: (context) => Statistics(),
               ));
               break;
             case 2:

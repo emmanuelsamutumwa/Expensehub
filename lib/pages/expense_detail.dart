@@ -6,7 +6,7 @@ import 'models/expense_item.dart';
 class ExpenseDetailPage extends StatelessWidget {
   final ExpenseItem expense;
 
-  const ExpenseDetailPage({super.key, required this.expense});
+  ExpenseDetailPage({required this.expense});
 
   @override
   Widget build(BuildContext context) {
@@ -19,26 +19,12 @@ class ExpenseDetailPage extends StatelessWidget {
             Text('Expense Name: ${expense.name}'),
             Text('Category: ${expense.category}'),
             Text('Amount: ${expense.amount}'),
-            Text('Date: ${DateFormat('yyyy-MM-dd HH:mm').format(expense.dateTime)}'),
-            if (expense.location != null) // Check if location is available
-              Column(
-                children: [
-                  Text('Latitude: ${expense.location!['latitude']}'),
-                  Text('Longitude: ${expense.location!['longitude']}'),
-                ],
-              ),
+            Text('Date: ${expense.dateTime.toString()}'),
             if (expense.imagePath != null)
               Image.file(
                 File(expense.imagePath!), // Assuming imagePath is a valid file path
                 width: 300,
                 height: 300,
-              ),
-            if (expense.location != null) // Check if location is available
-              Column(
-                children: [
-                  Text('Latitude: ${expense.location!['latitude']}'),
-                  Text('Longitude: ${expense.location!['longitude']}'),
-                ],
               ),
           ],
         ),

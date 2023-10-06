@@ -8,7 +8,7 @@ import 'homescreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({super.key});
+  Settings({super.key});
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -59,6 +59,7 @@ class _SettingsState extends State<Settings> {
                   },
                 ),
                 TextButton(
+                  child: Text('Sign Out'),
                   onPressed: isSigningOut
                       ? null
                       : () async {
@@ -70,7 +71,6 @@ class _SettingsState extends State<Settings> {
                     await _signOut(context);
                     Navigator.of(dialogContext).pop(); // Close the dialog
                   },
-                  child: Text('Sign Out'),
                 ),
               ],
             );

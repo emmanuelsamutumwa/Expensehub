@@ -13,11 +13,9 @@ class ExpenseData extends ChangeNotifier {
   List<ExpenseItem> get expenses => _expenses;
   String get selectedCurrency => _selectedCurrency;
 
-
-  void addNewExpense(ExpenseItem expense, Map<String, double>? location) {
-    expense.location = location;
+  void addNewExpense(ExpenseItem expense) {
     _expenses.add(expense);
-    _saveData();
+    _saveData(); // Save data after adding a new expense
     notifyListeners();
   }
 
@@ -32,13 +30,6 @@ class ExpenseData extends ChangeNotifier {
     _saveData(); // Save data after updating currency
     notifyListeners();
   }
-  double getTotalExpense() {
-    double total =0.0;
-    for (var expense in _expenses) {
-      total += expense.amount;
-    }
-    return total;
-  }
 
   // Load data from local storage
   Future<void> _loadData() async {
@@ -46,7 +37,7 @@ class ExpenseData extends ChangeNotifier {
     List<String>? expensesData = prefs.getStringList('expenses');
 
     if (expensesData != null) {
-      _expenses = expensesData.map((data) => ExpenseItem.fromJson(data as Map<String, dynamic>)).toList();
+      _expenses = expensesData.map((data) => ExpenseItem.fromJson(data)).toList();
       notifyListeners();
     }
   }

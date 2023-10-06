@@ -1,4 +1,3 @@
-import 'package:expensetracker/Geo/Geolocater.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expensetracker/pages/data/expense_data.dart';
@@ -8,8 +7,6 @@ import 'dart:io';
 import '../models/expense_item.dart';
 
 class AddExpenseDialog extends StatefulWidget {
-  const AddExpenseDialog({super.key});
-
   @override
   _AddExpenseDialogState createState() => _AddExpenseDialogState();
 }
@@ -21,6 +18,7 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
   String selectedCategory = 'Food';
   File? _selectedImage; // Make _selectedImage nullable
 
+  // Function to open the camera and select an image
   Future<void> _pickImageFromCamera() async {
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
     if (image != null) {
@@ -28,26 +26,6 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
         _selectedImage = File(image.path);
       });
     }
-  }
-
-  void _addLocation() async {
-    var userLocation = await LocationService().getUserLocation();
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Location Added'),
-        content: Text('Latitude: ${userLocation.latitude}, Longitude: ${userLocation.longitude}'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('Close'),
-          ),
-        ],
-      ),
-    );
   }
 
   @override
@@ -93,12 +71,6 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
             },
             child: Text('Select Image from Camera'),
           ),
-          ElevatedButton(
-            onPressed: () {
-              _addLocation();
-            },
-            child: Text('Add Location'),
-          ),
         ],
       ),
       actions: [
@@ -109,29 +81,26 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
           child: Text('Cancel'),
         ),
         ElevatedButton(
-          onPressed: () async {
+          onPressed: () {
             String name = expenseController.text;
             double amount = double.parse(amountController.text);
-            var userLocation = await LocationService().getUserLocation();
 
             ExpenseItem newExpense = ExpenseItem(
               name: name,
               amount: amount,
               dateTime: DateTime.now(),
               category: selectedCategory,
-              imagePath: _selectedImage?.path,
-              location: {
-                'latitude': userLocation.latitude,
-                'longitude': userLocation.longitude,
-              },
+              imagePath: _selectedImage?.path, // Pass the selected image to the ExpenseItem
             );
-            Provider.of<ExpenseData>(context, listen: false).addNewExpense(newExpense, null);
-            Navigator.pop(context);
 
-            },
+            Provider.of<ExpenseData>(context, listen: false).addNewExpense(newExpense);
+
+            Navigator.pop(context);
+          },
           child: Text('Save'),
         ),
       ],
     );
   }
 }
+
