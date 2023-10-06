@@ -90,11 +90,11 @@ class _ExpensePieChartState extends State<ExpensePieChart> {
                           color = Colors.red;
                         } else if (entry.key == 'Entertainment') {
                           color = Colors.blue;
-                        } else if (entry.key == 'Others') {
+                        } else if (entry.key == 'Medical') {
                           color = Colors.yellow;
-                        } else if (entry.key == 'Category5') {
+                        } else if (entry.key == 'Utilities') {
                           color = Colors.orange;
-                        } else if (entry.key == 'Category6') {
+                        } else if (entry.key == 'Others') {
                           color = Colors.pink;
                         } else {
                           color = Colors.brown; // Default color
