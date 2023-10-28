@@ -17,7 +17,7 @@ class LocationService {
       // Permission denied. Handle this case appropriately in your app.
       final locationService = LocationService();
       final userLocation = await locationService.getUserLocation();
-// Use userLocation for your app's functionality.
+      // Use userLocation for your app's functionality.
 
     }
   }

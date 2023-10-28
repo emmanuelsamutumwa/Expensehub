@@ -1,3 +1,4 @@
+import 'package:expensetracker/Geo/Geolocater.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expensetracker/pages/data/expense_data.dart';
@@ -19,6 +20,13 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
   final List<String> categories = ['Food', 'Transportation', 'Entertainment','Medical','Utilities', 'Others'];
   String selectedCategory = 'Food';
   File? _selectedImage; // Make _selectedImage nullable
+  var userLocation;
+
+  //Function to retrive user location and store it in userLocation
+  void _addLocation() async {
+    userLocation = await LocationService().getUserLocation();
+    setState(() {});
+  }
 
   // Function to open the camera and select an image
   Future<void> _pickImageFromCamera() async {
@@ -34,46 +42,48 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text('Add New Expense'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            controller: expenseController,
-            decoration: InputDecoration(labelText: 'Expense Name'),
-          ),
-          TextField(
-            controller: amountController,
-            decoration: InputDecoration(labelText: 'Amount'),
-            keyboardType: TextInputType.number,
-          ),
-          DropdownButtonFormField(
-            value: selectedCategory,
-            items: categories.map((category) {
-              return DropdownMenuItem(
-                value: category,
-                child: Text(category),
-              );
-            }).toList(),
-            onChanged: (newValue) {
-              setState(() {
-                selectedCategory = newValue.toString();
-              });
-            },
-            decoration: InputDecoration(labelText: 'Category'),
-          ),
-          if (_selectedImage != null)
-            Image.file(
-              _selectedImage!,
-              width: 100,
-              height: 100,
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: expenseController,
+              decoration: InputDecoration(labelText: 'Expense Name'),
             ),
-          ElevatedButton(
-            onPressed: () {
-              _pickImageFromCamera();
-            },
-            child: Text('Select Image from Camera'),
-          ),
-        ],
+            TextField(
+              controller: amountController,
+              decoration: InputDecoration(labelText: 'Amount'),
+              keyboardType: TextInputType.number,
+            ),
+            DropdownButtonFormField(
+              value: selectedCategory,
+              items: categories.map((category) {
+                return DropdownMenuItem(
+                  value: category,
+                  child: Text(category),
+                );
+              }).toList(),
+              onChanged: (newValue) {
+                setState(() {
+                  selectedCategory = newValue.toString();
+                });
+              },
+              decoration: InputDecoration(labelText: 'Category'),
+            ),
+            if (_selectedImage != null)
+              Image.file(
+                _selectedImage!,
+                width: 100,
+                height: 100,
+              ),
+            ElevatedButton(
+              onPressed: () {
+                _pickImageFromCamera();
+              },
+              child: Text('Select Image from Camera'),
+            ),
+          ],
+        ),
       ),
       actions: [
         TextButton(
@@ -82,6 +92,20 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
           },
           child: Text('Cancel'),
         ),
+        ElevatedButton(
+            onPressed:(){
+              _addLocation(); // Call the function to retrieve the user's location
+            } ,
+            child: Text("Get users Location"),
+        ),
+        if (userLocation != null)
+          Container(
+            child: Column(
+              children: [
+                Text ('Latitude: ${userLocation.latitude}, Longitude: ${userLocation.longitude}'),
+              ],
+            ),
+          ),
         ElevatedButton(
           onPressed: () {
             String name = expenseController.text;
