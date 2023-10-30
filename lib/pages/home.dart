@@ -29,45 +29,45 @@ class Homepage extends StatelessWidget{
                 width: 250,
                 height: 50,
                 decoration:
-                BoxDecoration(
+                const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: Colors.blue,
                 ),
                 child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                        side: BorderSide(
+                        side: const BorderSide(
                             color: Colors.transparent
                         )
                     ),
                     onPressed: (){
                       Navigator.push(context, MaterialPageRoute(builder: (buildContext) {
-                        return SignIn();
+                        return const SignIn();
                       }));
                     },
                     child: const
                     Text("SIGN IN",
                         style: TextStyle(color: Colors.white))),
               ),
-            SizedBox(height:30),
+            const SizedBox(height:30),
 
             //register
               Container(
                 width: 250,
                 height: 50,
                 decoration:
-                BoxDecoration(
+                const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: Colors.blue,
                 ),
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                    side: BorderSide(
+                    side: const BorderSide(
                       color: Colors.transparent
                     )
                   ),
                     onPressed: (){
                       Navigator.push(context, MaterialPageRoute(builder: (buildContext) {
-                        return SignUp();
+                        return const SignUp();
                       }));
                     },
                     child: const
@@ -75,9 +75,9 @@ class Homepage extends StatelessWidget{
                     style: TextStyle(color: Colors.white)),
                 ),
               ),
-              SizedBox(height:175),
+              const SizedBox(height:70),
 
-              Text("Designed By Emmanuel & Bupe")
+              const Text("Designed By Emmanuel & Bupe")
             ]
           ),
         ),

@@ -3,7 +3,6 @@ import 'package:expensetracker/pages/data/expense_data.dart';
 import 'package:expensetracker/pages/data/expenselist.dart';
 import 'package:expensetracker/pages/settings.dart';
 import 'package:expensetracker/pages/statistics.dart';
-import 'package:expensetracker/Geo/Geolocater.dart';
 import 'package:provider/provider.dart';
 import 'package:expensetracker/widget/bottomnavigation.dart';
 import 'data/addExpenseDialog.dart';
@@ -21,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void addNewExpense(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => AddExpenseDialog(),
+      builder: (context) => const AddExpenseDialog(),
     );
   }
 
@@ -39,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () => addNewExpense(context),
             child: const Icon(Icons.add),
           ),
-          body: ExpenseList(),
+          body: const ExpenseList(),
           bottomNavigationBar: CustomBottomNavigationBar(
             currentIndex: myIndex,
             onTap: (index) {
@@ -55,12 +54,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   break;
                 case 1:
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => Statistics(),
+                    builder: (context) => const Statistics(),
                   ));
                   break;
                 case 2:
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => Settings(),
+                    builder: (context) => const Settings(),
                   ));
                   break;
               }

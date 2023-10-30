@@ -8,7 +8,7 @@ import 'homescreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Settings extends StatefulWidget {
-  Settings({super.key});
+  const Settings({super.key});
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -27,7 +27,7 @@ class _SettingsState extends State<Settings> {
     Navigator.of(context).pop(); // Close the confirmation dialog
     // Navigate to sign-in screen
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => SignIn(), // Replace with your sign in screen
+      builder: (context) => const SignIn(), // Replace with your sign in screen
     ));
   }
 
@@ -42,18 +42,18 @@ class _SettingsState extends State<Settings> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return AlertDialog(
-              title: Text('Sign Out'),
+              title: const Text('Sign Out'),
               content: SingleChildScrollView(
                 child: ListBody(
                   children: <Widget>[
-                    Text('Are you sure you want to sign out?'),
-                    if (isSigningOut) CircularProgressIndicator(), // Show loading icon if signing out
+                    const Text('Are you sure you want to sign out?'),
+                    if (isSigningOut) const CircularProgressIndicator(), // Show loading icon if signing out
                   ],
                 ),
               ),
               actions: <Widget>[
                 TextButton(
-                  child: Text('Cancel'),
+                  child: const Text('Cancel'),
                   onPressed: () {
                     Navigator.of(dialogContext).pop(); // Close the dialog
                   },
@@ -66,11 +66,11 @@ class _SettingsState extends State<Settings> {
                       isSigningOut = true;
                     });
                     // Simulate a 5-second sign out process
-                    await Future.delayed(Duration(seconds: 2));
+                    await Future.delayed(const Duration(seconds: 2));
                     await _signOut(context);
                     Navigator.of(dialogContext).pop(); // Close the dialog
                   },
-                  child: Text('Sign Out'),
+                  child: const Text('Sign Out'),
                 ),
               ],
             );
@@ -85,7 +85,7 @@ class _SettingsState extends State<Settings> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings"),
+        title: const Text("Settings"),
         centerTitle: true,
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
@@ -97,24 +97,24 @@ class _SettingsState extends State<Settings> {
             switch (index) {
               case 0:
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => HomeScreen(),
+                  builder: (context) => const HomeScreen(),
                 ));
                 break;
               case 1:
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Statistics(),
+                  builder: (context) => const Statistics(),
                 ));
                 break;
               case 2:
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Settings(),
+                  builder: (context) => const Settings(),
                 ));
                 break;
             }
           }
       ),
       body: ListView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         children: [
           ListTile(
             title: const Text('Currency'),
@@ -135,12 +135,12 @@ class _SettingsState extends State<Settings> {
           ),
           const Divider(),
           ListTile(
-            title: Text('Reset Settings'),
+            title: const Text('Reset Settings'),
             onTap: _resetSettings,
           ),
           const Divider(),
           ListTile(
-            title: Text ("Sign Out"),
+            title: const Text ("Sign Out"),
             onTap: () =>  _showSignOutConfirmationDialog(context),
           ),
           const Divider(),

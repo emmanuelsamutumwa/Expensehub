@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
-  SignUp({super.key});
+  const SignUp({super.key});
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -25,7 +25,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Sign Up"),
+      appBar: AppBar(title: const Text("Sign Up"),
         centerTitle: true,
           automaticallyImplyLeading: false,
       ),
@@ -35,10 +35,10 @@ class _SignUpState extends State<SignUp> {
             child: Form(
               key: globalkey,
               child: Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Column(
                   children: [
-                    SizedBox(height:250),
+                    const SizedBox(height:250),
                     TextFormField(
                       keyboardType: TextInputType.name,
                       controller: fullnameController,
@@ -46,22 +46,23 @@ class _SignUpState extends State<SignUp> {
                         if (val!.isEmpty) {
                           return "Please enter Full Name";
                         }
+                        return null;
                       },
                       decoration: InputDecoration(
                         labelText: "Full Name",
                         hintText: "Full Name",
-                        prefixIcon: Icon(Icons.perm_identity),
+                        prefixIcon: const Icon(Icons.perm_identity),
                         suffix: IconButton(
-                          icon: Icon(Icons.clear),
+                          icon: const Icon(Icons.clear),
                           onPressed: () => fullnameController,
                         ),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(width: 3)
+                            borderSide: const BorderSide(width: 3)
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       controller: emailController,
@@ -69,23 +70,24 @@ class _SignUpState extends State<SignUp> {
                         if (val!.isEmpty) {
                           return "Please enter email address";
                         }
+                        return null;
                       },
                       decoration: InputDecoration(
                         labelText: "Email Address",
                         hintText: "name@example.com",
-                        prefixIcon: Icon(Icons.email),
+                        prefixIcon: const Icon(Icons.email),
                         suffix: IconButton(
-                          icon: Icon(Icons.clear),
+                          icon: const Icon(Icons.clear),
                           onPressed: () => emailController,
                         ),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(width: 3)
+                            borderSide: const BorderSide(width: 3)
                         ),
                       ),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
@@ -97,19 +99,20 @@ class _SignUpState extends State<SignUp> {
                         if (val!.isEmpty) {
                           return "Please enter Password";
                         }
+                        return null;
                       },
                       decoration: InputDecoration(
                         labelText: "Password",
                         hintText: "Enter secure password",
-                        prefixIcon: Icon(Icons.key),
+                        prefixIcon: const Icon(Icons.key),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(width: 3)
+                            borderSide: const BorderSide(width: 3)
                         ),
                       ),
                       textInputAction: TextInputAction.done,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
@@ -127,18 +130,18 @@ class _SignUpState extends State<SignUp> {
                       );
                       print("Signed Up Successfully");
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                           content: Text('Account created successfully!'),
                           duration: Duration(seconds: 5),
                         ),
                       );
                       Navigator.push(context, MaterialPageRoute(builder: (BuildContext) {
-                        return SignIn();
+                        return const SignIn();
                       }));
                     } catch (e) {
                       if (e is FirebaseAuthException && e.code == 'email-already-in-use') {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                             content: Text('This email is already in use. Please choose a different email address.'),
                             duration: Duration(seconds: 5),
                           ),);
@@ -153,31 +156,31 @@ class _SignUpState extends State<SignUp> {
 
                     final form = globalkey.currentState;
                     if (form!.validate()) {
-                      print("First Name: " + fullnameController.text.toString());
-                      print("Email: " + emailController.text.toString());
-                      print("Password: " + passwordController.text.toString());
+                      print("First Name: ${fullnameController.text}");
+                      print("Email: ${emailController.text}");
+                      print("Password: ${passwordController.text}");
                     }},
                       child: isLoading
-                          ? CircularProgressIndicator()
-                          : Text("Sign Up")
+                          ? const CircularProgressIndicator()
+                          : const Text("Sign Up")
                   )
 ,
 
-                    SizedBox(height:20),
+                    const SizedBox(height:20),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           "Already have an account?",
                           style: TextStyle(color: Colors.indigo),
                         ),
-                        SizedBox(width:5),
+                        const SizedBox(width:5),
                         TextButton(
                             onPressed: (){
                               Navigator.push(context, MaterialPageRoute(builder: (BuildContext)
                               {
-                                return SignIn();
+                                return const SignIn();
                               }));
                             },
                             child: const Text("Sign In"))

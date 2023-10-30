@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:expensetracker/pages/homescreen.dart';
 
 class SignIn extends StatefulWidget {
-  SignIn({super.key});
+  const SignIn({super.key});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -34,14 +34,14 @@ class _SignInState extends State<SignIn> {
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Password reset link sent to your email"),
           duration: Duration(seconds: 2),
         ),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Error sending password reset link! Please enter valid email in text field"),
           duration: Duration(seconds: 5),
         ),
@@ -53,7 +53,7 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sign In"),
+        title: const Text("Sign In"),
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
@@ -63,10 +63,10 @@ class _SignInState extends State<SignIn> {
           child: Form(
             key: globalkey,
             child: Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
-                  SizedBox(height: 250),
+                  const SizedBox(height: 250),
                   TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     controller: emailController,
@@ -74,22 +74,23 @@ class _SignInState extends State<SignIn> {
                       if (val!.isEmpty) {
                         return "Please enter email address";
                       }
+                      return null;
                     },
                     decoration: InputDecoration(
                       labelText: "Email Address",
                       hintText: "name@example.com",
-                      prefixIcon: Icon(Icons.email),
+                      prefixIcon: const Icon(Icons.email),
                       suffix: IconButton(
-                        icon: Icon(Icons.clear),
+                        icon: const Icon(Icons.clear),
                         onPressed: () => emailController.clear(),
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(width: 3),
+                        borderSide: const BorderSide(width: 3),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
@@ -100,11 +101,12 @@ class _SignInState extends State<SignIn> {
                       if (val!.isEmpty) {
                         return "Please enter Password";
                       }
+                      return null;
                     },
                     decoration: InputDecoration(
                       labelText: "Password",
                       hintText: "Enter secure password",
-                      prefixIcon: Icon(Icons.key),
+                      prefixIcon: const Icon(Icons.key),
                       suffixIcon: InkWell(
                         onTap: _togglePasswordVisibility,
                         child: Icon(
@@ -115,12 +117,12 @@ class _SignInState extends State<SignIn> {
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide(width: 3),
+                        borderSide: const BorderSide(width: 3),
                       ),
                     ),
                     textInputAction: TextInputAction.done,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   ElevatedButton(
@@ -129,7 +131,7 @@ class _SignInState extends State<SignIn> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return Center(
+                          return const Center(
                             child: CircularProgressIndicator(),
                           );
                         },
@@ -148,7 +150,7 @@ class _SignInState extends State<SignIn> {
                           context,
                           MaterialPageRoute(builder: (BuildContext) {
                             print("Signed in successfully");
-                            return HomeScreen();
+                            return const HomeScreen();
                           }),
                         );
                       }).catchError((error) {
@@ -168,39 +170,39 @@ class _SignInState extends State<SignIn> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(errorMessage),
-                            duration: Duration(seconds: 2),
+                            duration: const Duration(seconds: 2),
                           ),
                         );
                       });
 
                       final form = globalkey.currentState;
                       if (form!.validate()) {
-                        print("Email: " + emailController.text.toString());
-                        print("Password: " + passwordController.text.toString());
+                        print("Email: ${emailController.text}");
+                        print("Password: ${passwordController.text}");
                       }
                     },
-                    child: Text("Sign In"),
+                    child: const Text("Sign In"),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: _resetPassword, // Call the reset password function
-                    child: Text("Forgot Password"),
+                    child: const Text("Forgot Password"),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Do not have an account?",
                         style: TextStyle(color: Colors.indigo),
                       ),
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       TextButton(
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (BuildContext) {
-                              return SignUp();
+                              return const SignUp();
                             }),
                           );
                         },

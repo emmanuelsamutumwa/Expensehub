@@ -16,26 +16,26 @@ class ExpenseDetailPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height:50),
+            const SizedBox(height:50),
             Text('Expense Name: ${expense.name}',
-                style: TextStyle(fontWeight: FontWeight.bold,
+                style: const TextStyle(fontWeight: FontWeight.bold,
                     fontSize: 25)),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text('Category: ${expense.category}',
-              style: TextStyle(fontSize: 20),),
-            SizedBox(height: 10),
+              style: const TextStyle(fontSize: 20),),
+            const SizedBox(height: 10),
             Text('Amount: ${expense.amount}',
-              style: TextStyle(fontSize: 20),),
-            SizedBox(height: 10),
+              style: const TextStyle(fontSize: 20),),
+            const SizedBox(height: 10),
             if (expense.imagePath != null)
               Image.file(
                 File(expense.imagePath!), // Assuming imagePath is a valid file path
                 width: 300,
                 height: 300,
               ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text('Date: ${DateFormat('dd-MM-yyyy HH:mm').format(expense.dateTime)}',
-            style: TextStyle(fontSize: 15),)
+            style: const TextStyle(fontSize: 15),)
           ],
         ),
       ),

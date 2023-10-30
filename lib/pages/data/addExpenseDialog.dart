@@ -41,18 +41,18 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Add New Expense'),
+      title: const Text('Add New Expense'),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               controller: expenseController,
-              decoration: InputDecoration(labelText: 'Expense Name'),
+              decoration: const InputDecoration(labelText: 'Expense Name'),
             ),
             TextField(
               controller: amountController,
-              decoration: InputDecoration(labelText: 'Amount'),
+              decoration: const InputDecoration(labelText: 'Amount'),
               keyboardType: TextInputType.number,
             ),
             DropdownButtonFormField(
@@ -68,7 +68,7 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
                   selectedCategory = newValue.toString();
                 });
               },
-              decoration: InputDecoration(labelText: 'Category'),
+              decoration: const InputDecoration(labelText: 'Category'),
             ),
             if (_selectedImage != null)
               Image.file(
@@ -80,7 +80,7 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
               onPressed: () {
                 _pickImageFromCamera();
               },
-              child: Text('Select Image from Camera'),
+              child: const Text('Select Image from Camera'),
             ),
           ],
         ),
@@ -90,13 +90,13 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
         ),
         ElevatedButton(
             onPressed:(){
               _addLocation(); // Call the function to retrieve the user's location
             } ,
-            child: Text("Get users Location"),
+            child: const Text("Get users Location"),
         ),
         if (userLocation != null)
           Container(
@@ -123,7 +123,7 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
 
             Navigator.pop(context);
           },
-          child: Text('Save'),
+          child: const Text('Save'),
         ),
       ],
     );

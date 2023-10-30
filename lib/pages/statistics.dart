@@ -23,13 +23,17 @@ class _StatisticsState extends State<Statistics> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Statistics"),
+        title: const Text("Statistics"),
         centerTitle: true,
       ),
       body: Center(
         child: Consumer<ExpenseData>(
           builder: (context, expenseData, child) {
             List<ExpenseItem> expenses = expenseData.expenses;
+
+            if (expenses.isEmpty) {
+              return const Text("No expenses available");
+            }
             return ExpensePieChart(
               expenses: expenses,
               timePeriod: "Daily",
@@ -47,17 +51,17 @@ class _StatisticsState extends State<Statistics> {
           switch (index) {
             case 0:
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => HomeScreen(),
+                builder: (context) => const HomeScreen(),
               ));
               break;
             case 1:
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Statistics(),
+                builder: (context) => const Statistics(),
               ));
               break;
             case 2:
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Settings(),
+                builder: (context) => const Settings(),
               ));
               break;
           }

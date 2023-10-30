@@ -39,8 +39,8 @@ class _ExpenseListState extends State<ExpenseList> {
                         background: Container(
                           color: Colors.red,
                           alignment: Alignment.centerRight,
-                          padding: EdgeInsets.only(right: 20.0),
-                          child: Icon(Icons.delete, color: Colors.white),
+                          padding: const EdgeInsets.only(right: 20.0),
+                          child: const Icon(Icons.delete, color: Colors.white),
                         ),
                         onDismissed: (direction) {
                           expenseData.removeExpense(index);
@@ -54,7 +54,7 @@ class _ExpenseListState extends State<ExpenseList> {
                             children: [
                               Text('$selectedCurrency${expense.amount.toStringAsFixed(2)}'),
                               IconButton(
-                                icon: Icon(Icons.info),
+                                icon: const Icon(Icons.info),
                                 onPressed: () {
                                   Navigator.push(
                                     context,
@@ -78,11 +78,11 @@ class _ExpenseListState extends State<ExpenseList> {
             // Total expenses widget
             Container(
               color: Colors.grey,
-              padding: EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(30.0),
               alignment: Alignment.center,
               child: Text(
                 'Total Expenses: $selectedCurrency${totalExpenses.toStringAsFixed(2)}',
-                style: TextStyle(fontWeight: FontWeight.bold,
+                style: const TextStyle(fontWeight: FontWeight.bold,
                 fontSize: 20),
 
               ),

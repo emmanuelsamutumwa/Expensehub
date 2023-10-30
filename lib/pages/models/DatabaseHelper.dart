@@ -3,7 +3,7 @@ import 'package:path/path.dart';
 
 class DatabaseHelper {
   static Database? _database;
-  static final String tableName = 'expenses';
+  static const String tableName = 'expenses';
 
   Future<Database> get database async {
     if (_database != null) return _database!;
