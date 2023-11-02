@@ -33,7 +33,9 @@ class _StatisticsState extends State<Statistics> {
 
             //If Statement in a case to show the statistics when it do not have expense data an when it has expense data
             if (expenses.isEmpty) {
-              return const Text("No expenses available");
+              return const Text("No expenses available at the moment",
+              style: TextStyle(fontSize: 30),
+              textAlign: TextAlign.center);
             }
             return ExpensePieChart(
               expenses: expenses,
