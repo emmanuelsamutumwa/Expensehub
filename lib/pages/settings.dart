@@ -15,6 +15,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  bool isDarkMode = false;
   int myIndex = 2;
 
   void _resetSettings() {
@@ -27,10 +28,33 @@ class _SettingsState extends State<Settings> {
     Navigator.of(context).pop(); // Close the confirmation dialog
     // Navigate to sign-in screen
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => const SignIn(), // Replace with your sign in screen
+      builder: (context) => const SignIn(), //Takes ypu to the signIn screen
     ));
   }
 
+  //Dark mode switch alert dialog method
+  void _showFutureFeatureDialog(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text('Future Feature'),
+          content: Text('This feature will come in future updates.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                setState(() {
+                  isDarkMode = false; // Set isDarkMode back to false
+                });
+                Navigator.of(dialogContext).pop(); // Close the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   //confirmation dialog method
   Future<void> _showSignOutConfirmationDialog(BuildContext context) async {
     bool isSigningOut = false;
@@ -65,7 +89,7 @@ class _SettingsState extends State<Settings> {
                     setState(() {
                       isSigningOut = true;
                     });
-                    // Simulate a 5-second sign out process
+                    // Simulate a 2-second sign out process
                     await Future.delayed(const Duration(seconds: 2));
                     await _signOut(context);
                     Navigator.of(dialogContext).pop(); // Close the dialog
@@ -131,6 +155,22 @@ class _SettingsState extends State<Settings> {
                   child: Text(value),
                 );
               }).toList(),
+            ),
+          ),
+          const Divider(),
+          ListTile(
+            title: const Text ("Dark Mode"),
+            leading: const Icon(Icons.brightness_6),
+            trailing: Switch(
+              value: isDarkMode,
+              onChanged: (value){
+                setState(() {
+                  isDarkMode=value;
+                  if (value) {
+                    _showFutureFeatureDialog(context); // Calls method to show alert dialog
+                  }
+                });
+              }
             ),
           ),
           const Divider(),

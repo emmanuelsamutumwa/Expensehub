@@ -31,6 +31,7 @@ class _StatisticsState extends State<Statistics> {
           builder: (context, expenseData, child) {
             List<ExpenseItem> expenses = expenseData.expenses;
 
+            //If Statement in a case to show the statistics when it do not have expense data an when it has expense data
             if (expenses.isEmpty) {
               return const Text("No expenses available");
             }
